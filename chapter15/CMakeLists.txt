@@ -22,6 +22,6 @@ add_executable(ch15_animation animation/main.cpp
         animation/Utils.cpp)
 target_link_libraries(ch15_animation ${LIBS})
 
-add_executable(caustics caustics/main.cpp
+add_executable(ch15_caustics caustics/main.cpp
         caustics/Utils.cpp)
-target_link_libraries(caustics ${LIBS})
+target_link_libraries(ch15_caustics ${LIBS})

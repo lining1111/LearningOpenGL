@@ -14,7 +14,7 @@ layout (binding=1) uniform sampler2D h;	// for height map
 
 void main(void)
 {	// height-mapped vertex
-	vec4 P = vec4(vertPos,1.0) + vec4((vertNormal*((texture2D(h,texCoord).r)/5.0f)),1.0f);
+	vec4 P = vec4(vertPos,1.0) + vec4((vertNormal*((texture(h,texCoord).r)/5.0f)),1.0f);
 
 	tc = texCoord;
 	

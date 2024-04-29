@@ -20,7 +20,8 @@ GLuint renderingProgram;
 GLuint vao[numVAOs];
 GLuint vbo[numVBOs];
 
-ImportedModel pyramid("pyr.obj");
+auto basePath = string("chapter14/blending/");
+ImportedModel pyramid(string(basePath + "pyr.obj").c_str());
 Torus myTorus(0.8f, 0.6f, 48);
 int numPyramidVertices, numTorusVertices, numTorusIndices;
 
@@ -165,8 +166,6 @@ void setupVertices(void) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[4]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, ind.size() * 4, &ind[0], GL_STATIC_DRAW);
 }
-
-auto basePath = string("chapter14/blending/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),

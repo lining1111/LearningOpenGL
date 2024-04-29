@@ -6,5 +6,5 @@ in vec2 uv;
 
 void main()
 {
-	gl_FragColor = vec4( texture2D( tex, uv).rgb, 1.0);
+	gl_FragColor = vec4( texture( tex, uv).rgb, 1.0);
 }
