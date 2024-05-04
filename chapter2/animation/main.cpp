@@ -16,7 +16,7 @@ GLuint offsetLoc;
 float x = 0.0f;    // location of triangle on x axis
 float inc = 0.01f; // offset for moving the triangle
 
-const string basePath = "chapter2/animation/";
+const auto basePath = string("chapter2/animation/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),
@@ -41,17 +41,16 @@ void display(GLFWwindow *window, double currentTime) {
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(400, 200, "Chapter 2 - program 6", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     init(window);

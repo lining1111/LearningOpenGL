@@ -57,7 +57,7 @@ void setupVertices(void) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(textureCoordinates), textureCoordinates, GL_STATIC_DRAW);
 }
 
-auto basePath = string("chapter5/texturedPyramidMipmapAniso/");
+const auto basePath = string("chapter5/texturedPyramidMipmapAniso/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),
@@ -129,12 +129,7 @@ void window_size_callback(GLFWwindow *win, int newWidth, int newHeight) {
 int main(void) {
     if (!glfwInit()) { exit(EXIT_FAILURE); }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(600, 600, "Chapter 5 - program 1b", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }

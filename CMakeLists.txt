@@ -14,8 +14,6 @@ target_link_libraries(LearningOpenGL ${LIBS})
 
 ## chapter2
 add_subdirectory(chapter2)
-## chapter3
-add_subdirectory(chapter3)
 ## chapter4
 add_subdirectory(chapter4)
 ## chapter5
@@ -30,8 +28,6 @@ add_subdirectory(chapter8)
 add_subdirectory(chapter9)
 ## chapter10
 add_subdirectory(chapter10)
-## chapter11
-add_subdirectory(chapter11)
 ## chapter12
 add_subdirectory(chapter12)
 ## chapter13

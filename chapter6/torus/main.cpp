@@ -68,7 +68,7 @@ void setupVertices(void) {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, ind.size() * 4, &ind[0], GL_STATIC_DRAW);
 }
 
-auto basePath = string("chapter6/torus/");
+const auto basePath = string("chapter6/torus/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),
@@ -139,12 +139,7 @@ void window_size_callback(GLFWwindow *win, int newWidth, int newHeight) {
 int main(void) {
     if (!glfwInit()) { exit(EXIT_FAILURE); }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(800, 800, "Chapter 6 - program 2", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }

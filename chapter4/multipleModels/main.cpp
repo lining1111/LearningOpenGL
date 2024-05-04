@@ -60,7 +60,7 @@ void setupVertices(void) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(pyramidPositions), pyramidPositions, GL_STATIC_DRAW);
 }
 
-auto basePath = string("chapter4/multipleModels/");
+const auto basePath = string("chapter4/multipleModels/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),
@@ -132,17 +132,16 @@ void window_size_callback(GLFWwindow *win, int newWidth, int newHeight) {
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(600, 600, "Chapter 4 - program 3", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     glfwSetWindowSizeCallback(window, window_size_callback);

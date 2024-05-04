@@ -1,2 +1,4 @@
 #version 430
-void main(void) {}
+void main(void) {
+
+}

@@ -20,17 +20,31 @@ Torus::Torus(float in, float out, int precIn) {
     init();
 }
 
-float Torus::toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }
+float Torus::toRadians(float degrees) {
+    return (degrees * 2.0f * 3.14159f) / 360.0f;
+}
 
 void Torus::init() {
     numVertices = (prec + 1) * (prec + 1);
     numIndices = prec * prec * 6;
-    for (int i = 0; i < numVertices; i++) { vertices.push_back(glm::vec3()); }
-    for (int i = 0; i < numVertices; i++) { texCoords.push_back(glm::vec2()); }
-    for (int i = 0; i < numVertices; i++) { normals.push_back(glm::vec3()); }
-    for (int i = 0; i < numVertices; i++) { sTangents.push_back(glm::vec3()); }
-    for (int i = 0; i < numVertices; i++) { tTangents.push_back(glm::vec3()); }
-    for (int i = 0; i < numIndices; i++) { indices.push_back(0); }
+    for (int i = 0; i < numVertices; i++) {
+        vertices.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        texCoords.push_back(glm::vec2());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        normals.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        sTangents.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        tTangents.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numIndices; i++) {
+        indices.push_back(0);
+    }
 
     // calculate first ring
     for (int i = 0; i < prec + 1; i++) {
@@ -81,18 +95,34 @@ void Torus::init() {
     }
 }
 
-int Torus::getNumVertices() { return numVertices; }
+int Torus::getNumVertices() {
+    return numVertices;
+}
 
-int Torus::getNumIndices() { return numIndices; }
+int Torus::getNumIndices() {
+    return numIndices;
+}
 
-std::vector<int> Torus::getIndices() { return indices; }
+std::vector<int> Torus::getIndices() {
+    return indices;
+}
 
-std::vector<glm::vec3> Torus::getVertices() { return vertices; }
+std::vector<glm::vec3> Torus::getVertices() {
+    return vertices;
+}
 
-std::vector<glm::vec2> Torus::getTexCoords() { return texCoords; }
+std::vector<glm::vec2> Torus::getTexCoords() {
+    return texCoords;
+}
 
-std::vector<glm::vec3> Torus::getNormals() { return normals; }
+std::vector<glm::vec3> Torus::getNormals() {
+    return normals;
+}
 
-std::vector<glm::vec3> Torus::getStangents() { return sTangents; }
+std::vector<glm::vec3> Torus::getStangents() {
+    return sTangents;
+}
 
-std::vector<glm::vec3> Torus::getTtangents() { return tTangents; }
+std::vector<glm::vec3> Torus::getTtangents() {
+    return tTangents;
+}

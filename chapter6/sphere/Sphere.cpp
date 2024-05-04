@@ -19,13 +19,23 @@ float Sphere::toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 36
 void Sphere::init(int prec) {
     numVertices = (prec + 1) * (prec + 1);
     numIndices = prec * prec * 6;
-    for (int i = 0; i < numVertices; i++) { vertices.push_back(glm::vec3()); }
-    for (int i = 0; i < numVertices; i++) { texCoords.push_back(glm::vec2()); }
-    for (int i = 0; i < numVertices; i++) { normals.push_back(glm::vec3()); }
-    for (int i = 0; i < numVertices; i++) { tangents.push_back(glm::vec3()); }
-    for (int i = 0; i < numIndices; i++) { indices.push_back(0); }
+    for (int i = 0; i < numVertices; i++) {
+        vertices.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        texCoords.push_back(glm::vec2());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        normals.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numVertices; i++) {
+        tangents.push_back(glm::vec3());
+    }
+    for (int i = 0; i < numIndices; i++) {
+        indices.push_back(0);
+    }
 
-    // calculate triangle vertices
+    // 计算三角形的顶点
     for (int i = 0; i <= prec; i++) {
         for (int j = 0; j <= prec; j++) {
             float y = (float) cos(toRadians(180.0f - i * 180.0f / prec));
@@ -43,7 +53,7 @@ void Sphere::init(int prec) {
             }
         }
     }
-    // calculate triangle indices
+    // 计算三角形的索引
     for (int i = 0; i < prec; i++) {
         for (int j = 0; j < prec; j++) {
             indices[6 * (i * prec + j) + 0] = i * (prec + 1) + j;
@@ -56,16 +66,30 @@ void Sphere::init(int prec) {
     }
 }
 
-int Sphere::getNumVertices() { return numVertices; }
+int Sphere::getNumVertices() {
+    return numVertices;
+}
 
-int Sphere::getNumIndices() { return numIndices; }
+int Sphere::getNumIndices() {
+    return numIndices;
+}
 
-std::vector<int> Sphere::getIndices() { return indices; }
+std::vector<int> Sphere::getIndices() {
+    return indices;
+}
 
-std::vector<glm::vec3> Sphere::getVertices() { return vertices; }
+std::vector<glm::vec3> Sphere::getVertices() {
+    return vertices;
+}
 
-std::vector<glm::vec2> Sphere::getTexCoords() { return texCoords; }
+std::vector<glm::vec2> Sphere::getTexCoords() {
+    return texCoords;
+}
 
-std::vector<glm::vec3> Sphere::getNormals() { return normals; }
+std::vector<glm::vec3> Sphere::getNormals() {
+    return normals;
+}
 
-std::vector<glm::vec3> Sphere::getTangents() { return tangents; }
+std::vector<glm::vec3> Sphere::getTangents() {
+    return tangents;
+}

@@ -12,7 +12,7 @@ using namespace std;
 GLuint renderingProgram;
 GLuint vao[numVAOs];
 
-string readFile(string filePath) {
+string readFile(const char *filePath) {
     string content;
     ifstream fileStream(filePath, ios::in);
     string line = "";
@@ -24,15 +24,15 @@ string readFile(string filePath) {
     return content;
 }
 
-const string basePath = "chapter2/triangle/";
+const auto basePath = string("chapter2/triangle/");
 
 GLuint createShaderProgram() {
     GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
     GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
     GLuint vfprogram = glCreateProgram();
 
-    string vertShaderStr = readFile(basePath + "vertShader.glsl");
-    string fragShaderStr = readFile(basePath + "fragShader.glsl");
+    string vertShaderStr = readFile(string(basePath + "vertShader.glsl").c_str());
+    string fragShaderStr = readFile(string(basePath + "fragShader.glsl").c_str());
     const char *vertShaderSrc = vertShaderStr.c_str();
     const char *fragShaderSrc = fragShaderStr.c_str();
 
@@ -63,9 +63,7 @@ void display(GLFWwindow *window, double currentTime) {
 int main(void) {
     if (!glfwInit()) { exit(EXIT_FAILURE); }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(400, 200, "Chapter 2 - program 5", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }

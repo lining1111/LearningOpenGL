@@ -242,10 +242,11 @@ GLuint Utils::loadTexture(const char *texImagePath) {
     GLuint textureRef;
     textureRef = SOIL_load_OGL_texture(texImagePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
     if (textureRef == 0) cout << "didnt find texture file " << texImagePath << endl;
-    // ----- mipmap/anisotropic section
+    // ----- 如果使用多级渐远纹理贴图
     glBindTexture(GL_TEXTURE_2D, textureRef);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glGenerateMipmap(GL_TEXTURE_2D);
+    //如果还使用各向异性过滤
     if (glewIsSupported("GL_EXT_texture_filter_anisotropic")) {
         GLfloat anisoset = 0.0f;
         glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &anisoset);

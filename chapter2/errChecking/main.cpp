@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+
 using namespace std;
 
 #define numVAOs 1
@@ -18,7 +19,7 @@ void printShaderLog(GLuint shader) {
     char *log;
     glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
     if (len > 0) {
-        log = (char *)malloc(len);
+        log = (char *) malloc(len);
         glGetShaderInfoLog(shader, len, &chWrittn, log);
         cout << "Shader Info Log: " << log << endl;
         free(log);
@@ -31,7 +32,7 @@ void printProgramLog(int prog) {
     char *log;
     glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &len);
     if (len > 0) {
-        log = (char *)malloc(len);
+        log = (char *) malloc(len);
         glGetProgramInfoLog(prog, len, &chWrittn, log);
         cout << "Program Info Log: " << log << endl;
         free(log);
@@ -55,12 +56,12 @@ GLuint createShaderProgram() {
     GLint linked;
 
     const char *vshaderSource =
-            "#version 410    \n"
+            "#version 430    \n"
             "void main(void) \n"
             "{ gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
 
     const char *fshaderSource =
-            "#version 410    \n"
+            "#version 430    \n"
             "out vec4 color; \n"
             "void main(void) \n"
             "{ color = vec4(0.0, 0.0, 1.0, 1.0); }";
@@ -106,27 +107,29 @@ GLuint createShaderProgram() {
     return vfprogram;
 }
 
-void init(GLFWwindow* window) {
+void init(GLFWwindow *window) {
     renderingProgram = createShaderProgram();
     glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display(GLFWwindow *window, double currentTime) {
     glUseProgram(renderingProgram);
     glPointSize(30.0f);
     glDrawArrays(GL_POINTS, 0, 1);
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    GLFWwindow* window = glfwCreateWindow(600, 600, "Chapter 2 - program 3", NULL, NULL);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    GLFWwindow *window = glfwCreateWindow(600, 600, "Chapter 2 - program 3", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     init(window);

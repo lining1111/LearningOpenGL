@@ -61,7 +61,7 @@ void setupVertices(void) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(pyramidPositions), pyramidPositions, GL_STATIC_DRAW);
 }
 
-auto basePath = string("chapter4/matrixStack/");
+const auto basePath = string("chapter4/matrixStack/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),
@@ -86,13 +86,13 @@ void display(GLFWwindow *window, double currentTime) {
 
     mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
     projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
-
+    //将视图矩阵压入栈
     vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraX, -cameraY, -cameraZ));
     mvStack.push(vMat);
 
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
-    // ----------------------  pyramid == sun
+    // ---------------------- 四楞锥 ===太阳
     mvStack.push(mvStack.top());
     mvStack.top() *= glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
     mvStack.push(mvStack.top());
@@ -106,7 +106,7 @@ void display(GLFWwindow *window, double currentTime) {
     glDrawArrays(GL_TRIANGLES, 0, 18);
     mvStack.pop();
 
-    //-----------------------  cube == planet
+    //-----------------------  大立方体 ===地球
     mvStack.push(mvStack.top());
     mvStack.top() *= glm::translate(glm::mat4(1.0f),
                                     glm::vec3(sin((float) currentTime) * 4.0, 0.0f, cos((float) currentTime) * 4.0));
@@ -121,7 +121,7 @@ void display(GLFWwindow *window, double currentTime) {
     glDrawArrays(GL_TRIANGLES, 0, 36);
     mvStack.pop();
 
-    //-----------------------  smaller cube == moon
+    //-----------------------  小立方体 ===月亮
     mvStack.push(mvStack.top());
     mvStack.top() *= glm::translate(glm::mat4(1.0f),
                                     glm::vec3(0.0f, sin((float) currentTime) * 2.0, cos((float) currentTime) * 2.0));
@@ -147,17 +147,16 @@ void window_size_callback(GLFWwindow *win, int newWidth, int newHeight) {
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(600, 600, "Chapter 4 - program 4", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     glfwSetWindowSizeCallback(window, window_size_callback);

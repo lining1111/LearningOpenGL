@@ -1,6 +1,7 @@
 #include <fstream>
 #include <sstream>
 #include <glm/glm.hpp>
+#include <iostream>
 #include "ImportedModel.h"
 
 using namespace std;
@@ -22,13 +23,21 @@ ImportedModel::ImportedModel(const char *filePath) {
     }
 }
 
-int ImportedModel::getNumVertices() { return numVertices; }
+int ImportedModel::getNumVertices() {
+    return numVertices;
+}
 
-std::vector<glm::vec3> ImportedModel::getVertices() { return vertices; }
+std::vector<glm::vec3> ImportedModel::getVertices() {
+    return vertices;
+}
 
-std::vector<glm::vec2> ImportedModel::getTextureCoords() { return texCoords; }
+std::vector<glm::vec2> ImportedModel::getTextureCoords() {
+    return texCoords;
+}
 
-std::vector<glm::vec3> ImportedModel::getNormals() { return normalVecs; }
+std::vector<glm::vec3> ImportedModel::getNormals() {
+    return normalVecs;
+}
 
 // ---------------------------------------------------------------
 
@@ -38,9 +47,14 @@ void ModelImporter::parseOBJ(const char *filePath) {
     float x, y, z;
     string content;
     ifstream fileStream(filePath, ios::in);
+    if (!fileStream.is_open()) {
+        cout << "Could not read file - " << filePath << endl;
+        return;
+    }
     string line = "";
     while (!fileStream.eof()) {
         getline(fileStream, line);
+        //顶点位置(v标签)
         if (line.compare(0, 2, "v ") == 0) {
             stringstream ss(line.erase(0, 1));
             ss >> x;
@@ -50,6 +64,7 @@ void ModelImporter::parseOBJ(const char *filePath) {
             vertVals.push_back(y);
             vertVals.push_back(z);
         }
+        //纹理坐标(vt标签)
         if (line.compare(0, 2, "vt") == 0) {
             stringstream ss(line.erase(0, 2));
             ss >> x;
@@ -57,6 +72,7 @@ void ModelImporter::parseOBJ(const char *filePath) {
             stVals.push_back(x);
             stVals.push_back(y);
         }
+        //顶点法向量(vn标签)
         if (line.compare(0, 2, "vn") == 0) {
             stringstream ss(line.erase(0, 2));
             ss >> x;
@@ -66,6 +82,7 @@ void ModelImporter::parseOBJ(const char *filePath) {
             normVals.push_back(y);
             normVals.push_back(z);
         }
+        //三角形面(f标签)
         if (line.compare(0, 2, "f ") == 0) {
             string oneCorner, v, t, n;
             stringstream ss(line.erase(0, 2));
@@ -95,10 +112,18 @@ void ModelImporter::parseOBJ(const char *filePath) {
     }
 }
 
-int ModelImporter::getNumVertices() { return (triangleVerts.size() / 3); }
+int ModelImporter::getNumVertices() {
+    return (triangleVerts.size() / 3);
+}
 
-std::vector<float> ModelImporter::getVertices() { return triangleVerts; }
+std::vector<float> ModelImporter::getVertices() {
+    return triangleVerts;
+}
 
-std::vector<float> ModelImporter::getTextureCoordinates() { return textureCoords; }
+std::vector<float> ModelImporter::getTextureCoordinates() {
+    return textureCoords;
+}
 
-std::vector<float> ModelImporter::getNormals() { return normals; }
+std::vector<float> ModelImporter::getNormals() {
+    return normals;
+}

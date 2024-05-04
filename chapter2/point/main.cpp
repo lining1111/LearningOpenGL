@@ -15,15 +15,25 @@ GLuint vao[numVAOs];
 
 GLuint createShaderProgram() {
     const char *vshaderSource =
-            "#version 410    \n"
+            "#version 430    \n"
             "void main(void) \n"
             "{ gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
 
+//    const char *fshaderSource =
+//            "#version 430    \n"
+//            "out vec4 color; \n"
+//            "void main(void) \n"
+//            "{ color = vec4(0.0, 0.0, 1.0, 1.0); }";
     const char *fshaderSource =
-            "#version 410    \n"
+            "#version 430    \n"
             "out vec4 color; \n"
             "void main(void) \n"
-            "{ color = vec4(0.0, 0.0, 1.0, 1.0); }";
+            "{ if(gl_FragCoord.x<295){"
+            "       color = vec4(1.0, 0.0, 0.0, 1.0);"
+            "} else {"
+            "       color = vec4(0.0, 0.0, 1.0, 1.0);"
+            "}"
+            "}";
 
     GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
     GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -50,18 +60,20 @@ void init(GLFWwindow *window) {
 void display(GLFWwindow *window, double currentTime) {
     glUseProgram(renderingProgram);
     glPointSize(30.0f);
-    glDrawArrays(GL_POINTS, 0, 1);
+    glDrawArrays(GL_POINTS, 0, 1);//启动管线处理
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(600, 600, "Chapter 2 - program 2", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     init(window);

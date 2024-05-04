@@ -12,7 +12,8 @@ private:
     std::vector<glm::vec3> normals;
     std::vector<glm::vec3> tangents;
 
-    void init(int);
+    //prec 表示精度，体现为切片数量
+    void init(int prec);
 
     float toRadians(float degrees);
 

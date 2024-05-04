@@ -37,9 +37,9 @@ void setupVertices(void) {
     std::vector<glm::vec2> tex = mySphere.getTexCoords();
     std::vector<glm::vec3> norm = mySphere.getNormals();
 
-    std::vector<float> pvalues;
-    std::vector<float> tvalues;
-    std::vector<float> nvalues;
+    std::vector<float> pvalues;//顶点位置
+    std::vector<float> tvalues;//纹理坐标
+    std::vector<float> nvalues;//法向量
 
     int numIndices = mySphere.getNumIndices();
     for (int i = 0; i < numIndices; i++) {
@@ -56,18 +56,18 @@ void setupVertices(void) {
     glGenVertexArrays(1, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
-
+    //把顶点放入缓冲区0
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
     glBufferData(GL_ARRAY_BUFFER, pvalues.size() * 4, &pvalues[0], GL_STATIC_DRAW);
-
+    //把纹理坐标放入缓冲区1
     glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
     glBufferData(GL_ARRAY_BUFFER, tvalues.size() * 4, &tvalues[0], GL_STATIC_DRAW);
-
+    //把法向量放入缓冲区2
     glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
     glBufferData(GL_ARRAY_BUFFER, nvalues.size() * 4, &nvalues[0], GL_STATIC_DRAW);
 }
 
-auto basePath = string("chapter6/sphere/");
+const auto basePath = string("chapter6/sphere/");
 
 void init(GLFWwindow *window) {
     renderingProgram = Utils::createShaderProgram(string(basePath + "vertShader.glsl").c_str(),
@@ -129,17 +129,16 @@ void window_size_callback(GLFWwindow *win, int newWidth, int newHeight) {
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow *window = glfwCreateWindow(600, 600, "Chapter 6 - program 1", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     glfwSetWindowSizeCallback(window, window_size_callback);
