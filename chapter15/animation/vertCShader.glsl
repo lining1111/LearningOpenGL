@@ -9,10 +9,9 @@ uniform mat4 p_matrix;
 uniform int isAbove;
 layout (binding = 0) uniform samplerCube samp;
 
-void main(void)
-{
-	tc = position;
-	mat4 v3_matrix = mat4(mat3(v_matrix));
-	gl_Position = p_matrix * v3_matrix * vec4(position,1.0);
-	altitude = gl_Position.y;
+void main(void) {
+    tc = position;
+    mat4 v3_matrix = mat4(mat3(v_matrix));
+    gl_Position = p_matrix * v3_matrix * vec4(position, 1.0);
+    altitude = gl_Position.y;
 }

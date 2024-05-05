@@ -12,20 +12,20 @@ out vec3 varyingTangent;
 out vec3 originalVertex;
 out vec2 tc;
 
-layout (binding=0) uniform sampler2D s;
-layout (binding=1) uniform sampler2D t;
+layout (binding = 0) uniform sampler2D s;
+layout (binding = 1) uniform sampler2D t;
 
-struct PositionalLight
-{	vec4 ambient;
-	vec4 diffuse;
-	vec4 specular;
-	vec3 position;
+struct PositionalLight {
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    vec3 position;
 };
-struct Material
-{	vec4 ambient;
-	vec4 diffuse;
-	vec4 specular;
-	float shininess;
+struct Material {
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    float shininess;
 };
 
 uniform vec4 globalAmbient;
@@ -35,15 +35,15 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
-void main(void)
-{	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
-	varyingLightDir = light.position - varyingVertPos;
-	tc = texCoord;
-	
-	originalVertex = vertPos;
+void main(void) {
+    varyingVertPos = (mv_matrix * vec4(vertPos, 1.0)).xyz;
+    varyingLightDir = light.position - varyingVertPos;
+    tc = texCoord;
 
-	varyingNormal = (norm_matrix * vec4(vertNormal,1.0)).xyz;
-	varyingTangent = (norm_matrix * vec4(vertTangent,1.0)).xyz;
+    originalVertex = vertPos;
 
-	gl_Position = proj_matrix * mv_matrix * vec4(vertPos,1.0);
+    varyingNormal = (norm_matrix * vec4(vertNormal, 1.0)).xyz;
+    varyingTangent = (norm_matrix * vec4(vertTangent, 1.0)).xyz;
+
+    gl_Position = proj_matrix * mv_matrix * vec4(vertPos, 1.0);
 }

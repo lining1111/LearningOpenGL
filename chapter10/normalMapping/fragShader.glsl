@@ -12,15 +12,15 @@ out vec4 fragColor;
 
 layout (binding=0) uniform sampler2D normMap;
 
-struct PositionalLight
-{	vec4 ambient;  
+struct PositionalLight {
+	vec4 ambient;
 	vec4 diffuse;  
 	vec4 specular;  
 	vec3 position;
 };
 
-struct Material
-{	vec4 ambient;  
+struct Material {
+	vec4 ambient;
 	vec4 diffuse;  
 	vec4 specular;  
 	float shininess;
@@ -33,8 +33,7 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
-vec3 calcNewNormal()
-{
+vec3 calcNewNormal() {
 	vec3 normal = normalize(varyingNormal);
 	vec3 tangent = normalize(varyingTangent);
 	tangent = normalize(tangent - dot(tangent, normal) * normal);
@@ -47,8 +46,8 @@ vec3 calcNewNormal()
 	return newNormal;
 }
 
-void main(void)
-{	// normalize the light, normal, and view vectors:
+void main(void) {
+	// normalize the light, normal, and view vectors:
 	vec3 L = normalize(varyingLightDir);
 	vec3 V = normalize(-varyingVertPos);
 

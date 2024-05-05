@@ -6,7 +6,6 @@ in vec2 uv;
 
 out vec4 fragColor;
 
-void main()
-{
+void main() {
     fragColor = vec4(texture(tex, uv).rgb, 1.0);
 }

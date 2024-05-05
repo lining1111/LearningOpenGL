@@ -6,14 +6,14 @@ in vec3 varyingNormalG;
  
 out vec4 fragColor;
 
-struct PositionalLight
-{	vec4 ambient;
+struct PositionalLight {
+	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
 	vec3 position;
 };
-struct Material
-{	vec4 ambient;
+struct Material {
+	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
 	float shininess;
@@ -26,8 +26,7 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
-void main(void)
-{
+void main(void) {
 	// normalized the light, normal, and eye direction vectors
 	vec3 L = normalize(varyingLightDirG);
 	vec3 N = normalize(varyingNormalG);

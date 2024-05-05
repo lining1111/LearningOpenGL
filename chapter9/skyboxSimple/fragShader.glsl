@@ -7,7 +7,6 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 layout (binding = 0) uniform sampler2D s;
 
-void main(void)
-{
-	fragColor = texture(s,tc);
+void main(void) {
+    fragColor = texture(s, tc);
 }

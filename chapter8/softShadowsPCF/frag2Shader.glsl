@@ -24,6 +24,7 @@ uniform mat4 shadowMVP;
 layout (binding = 0) uniform sampler2DShadow shadowTex;
 
 float lookup(float x, float y) {
+    //第三个参数(-0.01)是用于消除阴影痤疮的偏移量
     float t = textureProj(shadowTex, shadow_coord + vec4(x * 0.001 * shadow_coord.w,
                                                          y * 0.001 * shadow_coord.w,
                                                          -0.01, 0.0));
@@ -38,6 +39,7 @@ void main(void) {
     vec3 V = normalize(-varyingVertPos);
     vec3 H = normalize(varyingHalfVec);
 
+    //此部分生成一个4采样抖动的柔和阴影
     float swidth = 2.5;
     vec2 o = mod(floor(gl_FragCoord.xy), 2.0) * swidth;
     shadowFactor += lookup(-1.5 * swidth + o.x, 1.5 * swidth - o.y);
@@ -46,7 +48,7 @@ void main(void) {
     shadowFactor += lookup(0.5 * swidth + o.x, -0.5 * swidth - o.y);
     shadowFactor = shadowFactor / 4.0;
 
-    // hi res PCF
+    // 此部分生成一个64采样抖动的柔和阴影
 /*	float width = 2.5;
 	float endp = width * 3.0 + width/2.0;
 	for (float m=-endp ; m<=endp ; m=m+width)

@@ -10,14 +10,14 @@ out vec3 varyingNormalG;
 
 layout (line_strip, max_vertices=2) out;
 
-struct PositionalLight
-{	vec4 ambient;
+struct PositionalLight {
+	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
 	vec3 position;
 };
-struct Material
-{	vec4 ambient;  
+struct Material {
+	vec4 ambient;
 	vec4 diffuse;  
 	vec4 specular;  
 	float shininess;
@@ -32,8 +32,8 @@ uniform mat4 norm_matrix;
 
 float sLen = 0.1;
 
-void main(void)
-{	// offset the three triangle vertices by the surface normal
+void main(void) {
+	// offset the three triangle vertices by the surface normal
 	vec3 op0 = gl_in[0].gl_Position.xyz;
 	vec3 op1 = gl_in[1].gl_Position.xyz;
 	vec3 op2 = gl_in[2].gl_Position.xyz;

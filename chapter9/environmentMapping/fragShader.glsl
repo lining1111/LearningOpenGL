@@ -9,8 +9,7 @@ uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 layout (binding = 0) uniform samplerCube t;
 
-void main(void)
-{
+void main(void) {
 	vec3 r = -reflect(normalize(-vVertPos), normalize(vNormal));
 	fragColor = texture(t,r);
 }

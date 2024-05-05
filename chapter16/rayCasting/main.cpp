@@ -7,6 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 
 using namespace std;
+
 #define RAYTRACE_RENDER_WIDTH    512
 #define RAYTRACE_RENDER_HEIGHT    512
 
@@ -27,7 +28,7 @@ GLuint vbo[numVBOs];
 
 GLuint screenQuadShader, raytraceComputeShader;
 
-auto basePath = string("chapter16/rayCasting/");
+const auto basePath = string("chapter16/rayCasting/");
 
 void init(GLFWwindow *window) {
     Utils::displayComputeShaderLimits();
@@ -114,17 +115,16 @@ void setWindowSizeCallback(GLFWwindow *win, int newWidth, int newHeight) {
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
     GLFWwindow *window = glfwCreateWindow(windowWidth, windowHeight, "Program 16.2 - simple ray casting", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     glfwSetWindowSizeCallback(window, setWindowSizeCallback);

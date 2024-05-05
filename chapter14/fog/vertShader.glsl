@@ -12,8 +12,8 @@ uniform mat4 proj_matrix;
 layout (binding=0) uniform sampler2D t;	// for texture
 layout (binding=1) uniform sampler2D h;	// for height map
 
-void main(void)
-{	// height-mapped vertex
+void main(void) {
+	// height-mapped vertex
 	vec4 P = vec4(vertPos,1.0) + vec4((vertNormal*((texture(h,texCoord).r)/5.0f)),1.0f);
 
 	tc = texCoord;

@@ -4,6 +4,7 @@ in vec3 vNormal, vLightDir, vVertPos, vHalfVec;
 in vec4 shadow_coord;
 out vec4 fragColor;
 
+//与顶点着色器相同的结构体和统一变量
 struct PositionalLight {
     vec4 ambient, diffuse, specular;
     vec3 position;
@@ -15,7 +16,7 @@ struct Material {
 };
 
 uniform vec4 globalAmbient;
-uniform PositionalLight light;
+uniform PositionalLight light;//假设光源位置以视觉空间坐标表示
 uniform Material material;
 uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;

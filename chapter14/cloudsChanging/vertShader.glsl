@@ -9,10 +9,10 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 uniform float d;
 
-layout (binding=0) uniform sampler3D s;
+layout (binding = 0) uniform sampler3D s;
 
-void main(void)
-{	originalPosition = position;
+void main(void) {
+    originalPosition = position;
     tc = texCoord;
-	gl_Position = proj_matrix * mv_matrix * vec4(position,1.0);
+    gl_Position = proj_matrix * mv_matrix * vec4(position, 1.0);
 }

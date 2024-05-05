@@ -10,8 +10,7 @@ uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 layout (binding = 0) uniform samplerCube t;
 
-void main(void)
-{
+void main(void) {
 	vVertPos = (mv_matrix * vec4(position,1.0)).xyz;
 	vNormal = (norm_matrix * vec4(normal,1.0)).xyz;
 	gl_Position = proj_matrix * mv_matrix * vec4(position,1.0);

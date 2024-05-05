@@ -8,14 +8,14 @@ out vec3 varyingVertPos;
 
 out vec3 originalVertex;
 
-struct PositionalLight
-{	vec4 ambient;
+struct PositionalLight {
+	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
 	vec3 position;
 };
-struct Material
-{	vec4 ambient;
+struct Material {
+	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
 	float shininess;
@@ -28,8 +28,8 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 uniform mat4 norm_matrix;
 
-void main(void)
-{	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
+void main(void) {
+	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
 	varyingLightDir = light.position - varyingVertPos;
 	varyingNormal = (norm_matrix * vec4(vertNormal,1.0)).xyz;
 	

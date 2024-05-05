@@ -5,12 +5,12 @@ layout (location=1) in vec3 vertNormal;
 
 out vec3 vNormal, vLightDir, vVertPos, vHalfVec; 
 
-struct PositionalLight
-{	vec4 ambient, diffuse, specular;
+struct PositionalLight {
+	vec4 ambient, diffuse, specular;
 	vec3 position;
 };
-struct Material
-{	vec4 ambient, diffuse, specular;   
+struct Material {
+	vec4 ambient, diffuse, specular;
 	float shininess;
 };
 
@@ -24,8 +24,8 @@ uniform mat4 norm_matrix;
 uniform float alpha;
 uniform float flipNormal;
 
-void main(void)
-{	//output the vertex position to the rasterizer for interpolation
+void main(void) {
+	//output the vertex position to the rasterizer for interpolation
 	vVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
         
 	//get a vector from the vertex to the light and output it to the rasterizer for interpolation

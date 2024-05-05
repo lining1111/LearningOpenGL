@@ -144,17 +144,17 @@ void setWindowSizeCallback(GLFWwindow *win, int newWidth, int newHeight) {
 }
 
 int main(void) {
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
+    if (!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
     GLFWwindow *window = glfwCreateWindow(windowWidth, windowHeight, "Program 16.9 - reflective box", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+    if (glewInit() != GLEW_OK) {
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1);
 
     glfwSetWindowSizeCallback(window, setWindowSizeCallback);

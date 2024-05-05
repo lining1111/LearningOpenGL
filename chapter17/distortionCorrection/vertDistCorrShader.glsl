@@ -6,6 +6,6 @@ uniform float winSizeX;
 uniform float winSizeY;
 layout (binding=0) uniform sampler2D lensTex;
 
-void main(void)
-{	gl_Position = vec4(position, 1.0);
+void main(void) {
+    gl_Position = vec4(position, 1.0);
 } 

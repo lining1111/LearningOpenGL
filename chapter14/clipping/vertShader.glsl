@@ -7,17 +7,17 @@ out vec3 varyingLightDir;
 out vec3 varyingVertPos;
 out vec3 varyingHalfVector;
 
-struct PositionalLight
-{	vec4 ambient;
-	vec4 diffuse;
-	vec4 specular;
-	vec3 position;
+struct PositionalLight {
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    vec3 position;
 };
-struct Material
-{	vec4 ambient;
-	vec4 diffuse;
-	vec4 specular;
-	float shininess;
+struct Material {
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    float shininess;
 };
 
 uniform vec4 globalAmbient;
@@ -30,18 +30,18 @@ uniform int flipNormal;
 
 vec4 clip_plane = vec4(0.0, 0.0, -1.0, 0.5);
 
-void main(void)
-{	varyingVertPos = (mv_matrix * vec4(vertPos,1.0)).xyz;
-	varyingLightDir = light.position - varyingVertPos;
-	varyingNormal = (norm_matrix * vec4(vertNormal,1.0)).xyz;
-	
-	if (flipNormal==1) varyingNormal = -varyingNormal;
-	
-	varyingHalfVector =
-		normalize(normalize(varyingLightDir)
-		+ normalize(-varyingVertPos)).xyz;
-	
-	gl_ClipDistance[0] = dot(clip_plane.xyz, vertPos) + clip_plane.w;
+void main(void) {
+    varyingVertPos = (mv_matrix * vec4(vertPos, 1.0)).xyz;
+    varyingLightDir = light.position - varyingVertPos;
+    varyingNormal = (norm_matrix * vec4(vertNormal, 1.0)).xyz;
 
-	gl_Position = proj_matrix * mv_matrix * vec4(vertPos,1.0);
+    if (flipNormal == 1) varyingNormal = -varyingNormal;
+
+    varyingHalfVector =
+    normalize(normalize(varyingLightDir)
+              + normalize(-varyingVertPos)).xyz;
+
+    gl_ClipDistance[0] = dot(clip_plane.xyz, vertPos) + clip_plane.w;
+
+    gl_Position = proj_matrix * mv_matrix * vec4(vertPos, 1.0);
 }

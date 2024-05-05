@@ -8,8 +8,7 @@ uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
 layout (binding = 0) uniform sampler2D s;
 
-void main(void)
-{
+void main(void) {
 	tc = tex_coord;
 	gl_Position = proj_matrix * mv_matrix * vec4(position,1.0);
 }
