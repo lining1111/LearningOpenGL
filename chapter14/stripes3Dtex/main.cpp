@@ -100,17 +100,17 @@ void generate3Dpattern() {
 
 void generate3Dpattern() {
 	int xStep, yStep, zStep, sumSteps;
-	for (int x = 0; x < texWidth; x++) {
+	for (int offsetX = 0; offsetX < texWidth; offsetX++) {
 		for (int y = 0; y < texHeight; y++) {
 			for (int z = 0; z < texDepth; z++) {
-				xStep = (x / 10) % 2;
+				xStep = (offsetX / 10) % 2;
 				yStep = (y / 10) % 2;
 				zStep = (z / 10) % 2;
 				sumSteps = xStep + yStep + zStep;
 				if ((sumSteps % 2) == 0)
-					tex3Dpattern[x][y][z] = 0.0;
+					tex3Dpattern[offsetX][y][z] = 0.0;
 				else
-					tex3Dpattern[x][y][z] = 1.0;
+					tex3Dpattern[offsetX][y][z] = 1.0;
 			}
 		}
 	}
@@ -128,12 +128,12 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < numDolphinVertices; i++) {
-        pvalues.push_back((vert[i]).x);
+        pvalues.push_back((vert[i]).offsetX);
         pvalues.push_back((vert[i]).y);
         pvalues.push_back((vert[i]).z);
         tvalues.push_back((tex[i]).s);
         tvalues.push_back((tex[i]).t);
-        nvalues.push_back((norm[i]).x);
+        nvalues.push_back((norm[i]).offsetX);
         nvalues.push_back((norm[i]).y);
         nvalues.push_back((norm[i]).z);
     }

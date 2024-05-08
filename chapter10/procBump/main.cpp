@@ -60,12 +60,12 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < myTorus.getNumVertices(); i++) {
-        pvalues.push_back(vert[i].x);
+        pvalues.push_back(vert[i].offsetX);
         pvalues.push_back(vert[i].y);
         pvalues.push_back(vert[i].z);
         tvalues.push_back(tex[i].s);
         tvalues.push_back(tex[i].t);
-        nvalues.push_back(norm[i].x);
+        nvalues.push_back(norm[i].offsetX);
         nvalues.push_back(norm[i].y);
         nvalues.push_back(norm[i].z);
     }

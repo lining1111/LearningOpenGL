@@ -40,6 +40,10 @@
     几何着色器赋予程序员一次操作一个图元的能力。
     vertex      vertShader  所有顶点着色器的主要目标都是将顶点发送给管线
     fragment    fragShader  所有片段着色器的主要目标都是给为了要展示的像素赋予颜色
+    geometry    geomShader  几何着色器的主要目标就是处理图元
+    tessC       tessCShader 细分控制着色器的主要目标就是处理图元
+    tessE       tessEShader 细分计算着色器的主要目标就是处理图元
+
     在顶点处理和像素处理中间，会经过光栅化阶段，将图元转换为像素。
     
     当绘制场景中各种对象时，片段着色器会生成像素颜色，像素颜色会存放到颜色缓冲区中，而最终的颜色缓冲区会被写到屏幕上。
@@ -47,10 +51,63 @@
 
     VBO 顶点缓冲对象
     VAO 顶点数组对象
+    基本图元类型:涵盖点-线-面(图元方向默认是逆时针的，可以修改为顺时针)
+    GL_POINTS           单个顶点集，创建单个点
+    GL_LINES            多组双顶点线段，创建线段
+    GL_LINE_STRIP       不闭合折线，创建线段
+    GL_LINE_LOOP        闭合折线，创建线段
+    GL_POLYGON          单个简单填充凸多边形，构建一个凸多边形
+    GL_QUADS            多组独立填充四边形，创建四边形
+    GL_QUAD_STRIP       连续填充四边形，创建四边形
+    GL_TRIANGLES        多组独立填充三角形，创建三角形
+    GL_TRIANGLE_STRIP   线型连续填充三角形，创建三角形
+    GL_TRIANGLE_FAN     扇型连续填充三角形，创建三角形
+
+    栅格化：为了显示3个顶点确定的三角形需要绘制的所有像素的位置
+    栅格化开始，先对三角形的每对顶点进行插值，得到三角形上的所有顶点，
+    然后将三角形上的所有顶点，映射到屏幕上，得到三角形上的所有像素，
+    然后将三角形上的所有像素，映射到颜色缓冲区中，最后将颜色缓冲区中的所有像素，映射到屏幕上。
+    插值：插值是用来计算一个点在一条线段上的位置的算法。
+    GL_FILL     默认填充方式
+    GL_LINE     呈现线框模型
+    GL_POINT    用点绘制图形
+    
+    glsl语言中数据类型包括：
+    基础数据类型：int、float、double、uint、bool等
+    容器类型：vec：
+            mat：
+    着色器通信，每个阶段的着色器都是独立的程序，前一个的输出是后面一个的输入。
+    从cpu中应用向GPU发送数据、从顶点着色器向片段着色器发生数据等。主要包括下面的方式
+    uniform：从cpu应用向gpu发送数据
+    in/out:上个阶段着色器的输出结果是下个阶段着色器的输入
+    layout:从cpu应用向gpu中的顶点着色器传输顶点的多个维度数据(位置、颜色、纹理坐标、法向量等)
+
+    工程代码中，基础类：
+    Utils:错误检测、读取着色器
+        ---支持顶点着色器、片段着色器
+        static GLuint createShaderProgram(const char *vp, const char *fp);
+        ---支持顶点着色器、几何着色器、片段着色器
+        static GLuint createShaderProgram(const char *vp, const char *gp, const char *fp);
+        ---支持顶点着色器、曲面细分着色器(2)、片段着色器
+        static GLuint createShaderProgram(const char *vp, const char *tCS, const char *tES, const char *fp);
+        ---支持顶点着色器、曲面细分着色器(2)、几何着色器、片段着色器
+        static GLuint createShaderProgram(const char *vp, const char *tCS, const char *tES, char *gp, const char *fp);
+    Torus:环面类
+    Sphere:球体类
+    Cube:立方体类
+    ImportedModel:导入模型类
+    
+    
 
     **OpenGL的难点除了按照套路来完成顶点、片段、加载纹理等，还需要在动态变换时，对矩阵有深刻的理解。**
 
 ## chapter2
+
+    介绍基本单元的使用，很粗略，目的建立一个基本的概念。
+
+## chapter3
+
+    计算机图形学使用了大量的数学知识，尤其是矩阵和线性代数。
 
 ## chapter4
 

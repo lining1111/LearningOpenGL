@@ -71,7 +71,7 @@ double prevTime;
 // 3D Noise Texture section
 
 double smoothNoise(double zoom, double x1, double y1, double z1) {
-//get fractional part of x, y, and z
+//get fractional part of offsetX, y, and z
     double fractX = x1 - (int) x1;
     double fractY = y1 - (int) y1;
     double fractZ = z1 - (int) z1;

@@ -136,10 +136,10 @@ void setupVertices(void) {
     std::vector<float> pyramidNvalues;
 
     for (int i = 0; i < numPyramidVertices; i++) {
-        pyramidPvalues.push_back((vert[i]).x);
+        pyramidPvalues.push_back((vert[i]).offsetX);
         pyramidPvalues.push_back((vert[i]).y);
         pyramidPvalues.push_back((vert[i]).z);
-        pyramidNvalues.push_back((norm[i]).x);
+        pyramidNvalues.push_back((norm[i]).offsetX);
         pyramidNvalues.push_back((norm[i]).y);
         pyramidNvalues.push_back((norm[i]).z);
     }
@@ -156,10 +156,10 @@ void setupVertices(void) {
     std::vector<float> torusNvalues;
 
     for (int i = 0; i < numTorusVertices; i++) {
-        torusPvalues.push_back(vert[i].x);
+        torusPvalues.push_back(vert[i].offsetX);
         torusPvalues.push_back(vert[i].y);
         torusPvalues.push_back(vert[i].z);
-        torusNvalues.push_back(norm[i].x);
+        torusNvalues.push_back(norm[i].offsetX);
         torusNvalues.push_back(norm[i].y);
         torusNvalues.push_back(norm[i].z);
     }

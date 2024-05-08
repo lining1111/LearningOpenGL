@@ -58,7 +58,7 @@ float matShi = 75.0f;
 // 3D Noise Texture section
 
 double smoothNoise(double zoom, double x1, double y1, double z1) {
-    //get fractional part of x, y, and z
+    //get fractional part of offsetX, y, and z
     double fractX = x1 - (int) x1;
     double fractY = y1 - (int) y1;
     double fractZ = z1 - (int) z1;
@@ -193,12 +193,12 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < numDolphinVertices; i++) {
-        pvalues.push_back((vert[i]).x);
+        pvalues.push_back((vert[i]).offsetX);
         pvalues.push_back((vert[i]).y);
         pvalues.push_back((vert[i]).z);
         tvalues.push_back((tex[i]).s);
         tvalues.push_back((tex[i]).t);
-        nvalues.push_back((norm[i]).x);
+        nvalues.push_back((norm[i]).offsetX);
         nvalues.push_back((norm[i]).y);
         nvalues.push_back((norm[i]).z);
     }

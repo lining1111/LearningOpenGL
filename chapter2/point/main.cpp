@@ -11,7 +11,7 @@ using namespace std;
 #define numVAOs 1
 
 GLuint renderingProgram;
-GLuint vao[numVAOs];
+GLuint vao[numVAOs];//顶点数组对象
 
 GLuint createShaderProgram() {
     const char *vshaderSource =
@@ -28,7 +28,7 @@ GLuint createShaderProgram() {
             "#version 430    \n"
             "out vec4 color; \n"
             "void main(void) \n"
-            "{ if(gl_FragCoord.x<295){"
+            "{ if(gl_FragCoord.offsetX<295){"
             "       color = vec4(1.0, 0.0, 0.0, 1.0);"
             "} else {"
             "       color = vec4(0.0, 0.0, 1.0, 1.0);"
@@ -63,7 +63,7 @@ void display(GLFWwindow *window, double currentTime) {
     glDrawArrays(GL_POINTS, 0, 1);//启动管线处理
 }
 
-int main(void) {
+int main(int argc, char **argv) {
     if (!glfwInit()) {
         exit(EXIT_FAILURE);
     }
