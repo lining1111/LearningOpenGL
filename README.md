@@ -108,6 +108,59 @@
 ## chapter3
 
     计算机图形学使用了大量的数学知识，尤其是矩阵和线性代数。
+    **在OpenGL和Eigen3中，矩阵的叉乘是从右到左计算的。而线性代数(理论)中，矩阵的叉乘是从左到右计算的。**
+    在图形学中，矩阵是用来进行物体的变换的
+    平移矩阵
+    [1,0,0,x
+     0,1,0,y
+     0,0,1,z
+     0,0,0,1]
+    glm::translate(x,y,z);
+    mat4*vec4;
+    缩放矩阵
+    [x,0,0,0
+     0,y,0,0
+     0,0,z,0
+     0,0,0,1]
+    glm::scale(x,y,z);
+    mat4*vec4;
+    旋转矩阵
+    设sa = sin(a), ca = cos(a);
+    绕x轴a
+    [1,     0,      0,  0
+     0,     ca,     -sa,0
+     0,     sa,     ca, 0
+     0,     0,      0,  1]
+    绕y轴a
+    [ca,    0,      sa, 0
+     0,     1,      0,  0
+    -sa,    0,      ca, 0
+     0,     0,      0,  1]
+    绕z轴a
+    [ca,    -sa,    0, 0
+     sa,    ca,     0, 0
+     0,     0,      1, 0
+     0,     0,      0, 1]
+    
+    mat4 = glm::mat4(1.0f);
+    glm::rotate(mat4,angle,x,y,z);
+    mat4*vec4;
+    投影矩阵
+    fov = 45.0f;//视场，可视空间的纵向高度
+    aspect = 800.0f/600.0f;//屏幕宽高比
+    near = 0.1f;//近裁剪面
+    far = 1000.0f;//远裁剪面
+    glm::perspective(fov,aspect,near,far)
+
+    glm::ortho(left,right,bottom,top,near,far)
+    LookAt矩阵
+    eye = glm::vec3(0.0f,0.0f,5.0f);//相机位置
+    center = glm::vec3(0.0f,0.0f,0.0f);//相机观察目标点
+    up = glm::vec3(0.0f,1.0f,0.0f);//相机上方向
+    glm::lookAt(eye,center,up)
+
+    代码中展示了点(1,1,1,1)经过平移、缩放、旋转后的结果    
+    opengl和eigen3的旋转矩阵得到的系数不同，精度问题
 
 ## chapter4
 
