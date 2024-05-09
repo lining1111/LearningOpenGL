@@ -75,16 +75,16 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < numTorusVertices; i++) {
-        pvalues.push_back(vert[i].offsetX);
+        pvalues.push_back(vert[i].x);
         pvalues.push_back(vert[i].y);
         pvalues.push_back(vert[i].z);
         tvalues.push_back(tex[i].s);
         tvalues.push_back(tex[i].t);
-        nvalues.push_back(norm[i].offsetX);
+        nvalues.push_back(norm[i].x);
         nvalues.push_back(norm[i].y);
         nvalues.push_back(norm[i].z);
     }
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
 
@@ -162,8 +162,10 @@ void display(GLFWwindow *window, double currentTime) {
 
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);    // cube is CW, but we are viewing the inside
+    //禁用深度缓冲
     glDisable(GL_DEPTH_TEST);
     glDrawArrays(GL_TRIANGLES, 0, 36);
+    //启用深度缓冲
     glEnable(GL_DEPTH_TEST);
 
     // draw scene (in this case it is just a torus

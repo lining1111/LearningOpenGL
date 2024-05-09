@@ -45,7 +45,7 @@ void setupVertices(void) {
              0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
              1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
             };
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
 
@@ -107,7 +107,7 @@ void display(GLFWwindow *window, double currentTime) {
     glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(1);
-
+    //激活第0个纹理单元
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, brickTexture);
 

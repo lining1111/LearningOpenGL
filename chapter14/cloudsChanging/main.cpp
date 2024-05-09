@@ -157,12 +157,12 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < halfSphere.getNumIndices(); i++) {
-        pvalues.push_back((vert[ind[i]]).offsetX);
+        pvalues.push_back((vert[ind[i]]).x);
         pvalues.push_back((vert[ind[i]]).y);
         pvalues.push_back((vert[ind[i]]).z);
-        tvalues.push_back((tex[ind[i]]).offsetX);
+        tvalues.push_back((tex[ind[i]]).x);
         tvalues.push_back((tex[ind[i]]).y);
-        nvalues.push_back((norm[ind[i]]).offsetX);
+        nvalues.push_back((norm[ind[i]]).x);
         nvalues.push_back((norm[ind[i]]).y);
         nvalues.push_back((norm[ind[i]]).z);
     }

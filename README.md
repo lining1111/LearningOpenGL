@@ -207,38 +207,126 @@
 
 ## chapter5
 
+    应该明确的两种坐标：
+    顶点坐标：物体3D空间的坐标(x,y,z)
+    纹理坐标：贴图的坐标(s,t)(图像一般是2D的，图像定义为矩形，左下角为(0,0),右上角为(1,1)，所以s,t都是0到1之间的值)
+    
+    介绍了贴图方法
+    brickTexture = Utils::loadTexture(path);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, brickTexture);
+    同时
+    vertShader.glsl 增加
+    layout (location = 1) in vec2 texCoord;
+    out vec2 tc;
+    layout (binding = 0) uniform sampler2D samp;
+    main 增加 tc = texCoord;
+
+    fragShader.glsl 增加
+    layout (binding = 0) uniform sampler2D samp;
+    main 增加 color = texture(samp, tc);
+
 ## chapter6
 
+    顶点的法向量：顶点垂直于模型的表面，法向量是垂直于顶点的向量，用来描述顶点所在面的方向。
     .obj文件的查看，ubuntu安装blender,apt安装就行，clion上安装插件 Wavefront OBJ，即可在clion上完成.obj文件的预览
     blender使用说明 https://docs.blender.org/manual/zh-hans/2.92/getting_started/index.html
     开源的.obj文件下载 https://www.blender.org/download/demo-files/
+    本章的重点就是理解顶点和索引模式绘制简单几何体后，用导入模型的方式，绘制模型。
+    步骤是：借助DCC工具(数字内容创建)在3D空间中构建任意形状，并自动生成模型文件，该文件包括顶点、纹理坐标、法向量、索引等。
+    blender生成的.obj文件内容：
+    每行以字符标签开头，标明该行数据类型
+    v   顶点
+    vt  纹理坐标
+    vn  法向量
+    f   索引
+    此外还有很多其他的标签
+    本书中采用的是手写导入模型文件的方式，其实在实际工作中，应该借助第三方库来完成，Assimp库就是一个不错的选择，ubuntu可以选择用apt安装
+    
 
 ## chapter7
 
+    添加光照
+    常见的光照模型：
     A:环境光反射
     D:漫反射
     S:镜面反射
     Gouraud着色:平滑着色算法，由于使用了3D图形管线中的自动插值渲染，因此它特别适用于现代显卡。
     Phong着色:
     Blinn-Phong着色:
+    各种材质的环境光、漫反射、镜面反射和光泽度，基于RGBA标准每个都是vec4，查看地址 devernay.free.fr 但是国内打不开
+
+    1. `ambient`材质矢量：定义表面在环境光下的反射的颜色，一般就是表面的颜色。
+    2. `diffuse`材质矢量：定义表面在扩散光下的反射的颜色。一般设置为表面想要的颜色。
+    3. `specular`材质矢量：设置镜面光斑在表面上的颜色。
+    4. `shininess`：影响镜面光斑的扩散/直径。
 
 ## chapter8
 
+    添加阴影
+    分为两轮进行
+    C++
+    1、从光源位置绘制物体
+        中间步骤，将深度缓冲区复制到纹理
+        每个对象有一个shadowMVP(基于光源的透视矩阵)
+        shadowMVP1 = lightPmatrix * lightVmatrix * mMat;
+    2、渲染带阴影的场景
+
+        在第2轮中，从纹理贴图尝试查找像素的时候，OpenGL的相机使用[-1,1]坐标空间，而纹理贴图使用的是[0,1]坐标空间，常见的解决方案是构建一个偏离矩阵
+        b = [   0.5     0       0       0.5
+                0       0.5     0       0.5
+                0       0       0.5     0.5
+                0       0       0       1    ]
+        
+        shadowMVP2 = b * lightPmatrix * lightVmatrix * mMat;
+    glsl
+    
+
 ## chapter9
+
+    天空和背景
+    
 
 ## chapter10
 
+    增强表面细节
+
+## chapter11
+
+    曲面参数，该章理论较强
+
 ## chapter12
+
+    曲面细分
+    OpenGL对硬件曲面细分的支持，通过3个管线阶段提供：
+    1、曲面细分控制器
+    2、曲面细分器
+    3、曲面细分评估着色器
 
 ## chapter13
 
+    几何着色器
+    允许一次操作一个图元
+    geometry 几何学(图元)
+
 ## chapter14
+
+    其他技术
+    雾、混合、裁剪、3D纹理、云、溶解
 
 ## chapter15
 
+    模拟水面
+    这里水面反射和折射的程序，久到程序退出都没出来，后面的程序都能出来，可能代码有问题
+    
+    本章欣赏添加动画那个效果挺不错的
+
 ## chapter16
+
+    光线追踪和计算着色器,虚拟机中GPU可能用不了，总是段错误,该章需要以后再重点看看
+    
 
 ## chapter17
 
-
+    3D和VR
     

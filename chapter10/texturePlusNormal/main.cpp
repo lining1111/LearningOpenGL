@@ -65,15 +65,15 @@ void setupVertices(void) {
     std::vector<float> tanvalues;
 
     for (int i = 0; i < mySphere.getNumIndices(); i++) {
-        pvalues.push_back((vert[ind[i]]).offsetX);
+        pvalues.push_back((vert[ind[i]]).x);
         pvalues.push_back((vert[ind[i]]).y);
         pvalues.push_back((vert[ind[i]]).z);
         tvalues.push_back((tex[ind[i]]).s);
         tvalues.push_back((tex[ind[i]]).t);
-        nvalues.push_back((norm[ind[i]]).offsetX);
+        nvalues.push_back((norm[ind[i]]).x);
         nvalues.push_back((norm[ind[i]]).y);
         nvalues.push_back((norm[ind[i]]).z);
-        tanvalues.push_back((tang[ind[i]]).offsetX);
+        tanvalues.push_back((tang[ind[i]]).x);
         tanvalues.push_back((tang[ind[i]]).y);
         tanvalues.push_back((tang[ind[i]]).z);
     }

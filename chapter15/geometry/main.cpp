@@ -18,7 +18,7 @@ float toRadians(float degrees) { return (degrees * 2.0f * 3.14159f) / 360.0f; }
 
 Utils util = Utils();
 
-float cameraHeight = 2.0f, cameraPitch = 15.0f;
+float cameraHeight = -2.0f, cameraPitch = 15.0f;//这里修改cameraHeight调整相机高度，cameraPitch调整相机俯仰角
 float surfacePlaneHeight = 0.0f;
 float floorPlaneHeight = -10.0f;
 GLuint renderingProgramSURFACE, renderingProgramFLOOR, renderingProgramCubeMap;
@@ -106,7 +106,7 @@ void setupVertices(void) {
             0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
     };
 
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
 

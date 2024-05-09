@@ -67,7 +67,7 @@ glm::mat4 lightVmatrix;
 glm::mat4 lightPmatrix;
 glm::mat4 shadowMVP1;
 glm::mat4 shadowMVP2;
-glm::mat4 b;
+glm::mat4 b;//偏移矩阵,用于第2轮的转换
 
 // variable allocation for display
 GLuint mvLoc, projLoc, nLoc, sLoc;
@@ -136,10 +136,10 @@ void setupVertices(void) {
     std::vector<float> pyramidNvalues;
 
     for (int i = 0; i < numPyramidVertices; i++) {
-        pyramidPvalues.push_back((vert[i]).offsetX);
+        pyramidPvalues.push_back((vert[i]).x);
         pyramidPvalues.push_back((vert[i]).y);
         pyramidPvalues.push_back((vert[i]).z);
-        pyramidNvalues.push_back((norm[i]).offsetX);
+        pyramidNvalues.push_back((norm[i]).x);
         pyramidNvalues.push_back((norm[i]).y);
         pyramidNvalues.push_back((norm[i]).z);
     }
@@ -156,15 +156,15 @@ void setupVertices(void) {
     std::vector<float> torusNvalues;
 
     for (int i = 0; i < numTorusVertices; i++) {
-        torusPvalues.push_back(vert[i].offsetX);
+        torusPvalues.push_back(vert[i].x);
         torusPvalues.push_back(vert[i].y);
         torusPvalues.push_back(vert[i].z);
-        torusNvalues.push_back(norm[i].offsetX);
+        torusNvalues.push_back(norm[i].x);
         torusNvalues.push_back(norm[i].y);
         torusNvalues.push_back(norm[i].z);
     }
 
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
 

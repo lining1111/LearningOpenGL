@@ -42,16 +42,16 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < myTorus.getNumVertices(); i++) {
-        pvalues.push_back(vert[i].offsetX);
+        pvalues.push_back(vert[i].x);
         pvalues.push_back(vert[i].y);
         pvalues.push_back(vert[i].z);
         tvalues.push_back(tex[i].s);
         tvalues.push_back(tex[i].t);
-        nvalues.push_back(norm[i].offsetX);
+        nvalues.push_back(norm[i].x);
         nvalues.push_back(norm[i].y);
         nvalues.push_back(norm[i].z);
     }
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
 
@@ -126,7 +126,9 @@ void display(GLFWwindow *window, double currentTime) {
     glFrontFace(GL_CCW);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
+    //启用包含索引的VBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[3]);
+    //利用索引来查找要绘制的顶点
     glDrawElements(GL_TRIANGLES, myTorus.getIndices().size(), GL_UNSIGNED_INT, 0);
 }
 

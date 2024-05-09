@@ -241,7 +241,9 @@ GLuint Utils::loadCubeMap(const char *mapDir) {
 GLuint Utils::loadTexture(const char *texImagePath) {
     GLuint textureRef;
     textureRef = SOIL_load_OGL_texture(texImagePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-    if (textureRef == 0) cout << "didnt find texture file " << texImagePath << endl;
+    if (textureRef == 0) {
+        cout << "didnt find texture file " << texImagePath << endl;
+    }
     // ----- mipmap/anisotropic section
     glBindTexture(GL_TEXTURE_2D, textureRef);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

@@ -26,7 +26,7 @@ uniform PositionalLight light;
 uniform Material material;
 uniform mat4 mv_matrix;
 uniform mat4 proj_matrix;
-uniform mat4 norm_matrix;
+uniform mat4 norm_matrix;//用来变换法向量
 
 void main(void) {
     // normalize the light, normal, and view vectors:

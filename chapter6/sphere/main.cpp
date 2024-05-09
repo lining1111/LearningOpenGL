@@ -43,17 +43,17 @@ void setupVertices(void) {
 
     int numIndices = mySphere.getNumIndices();
     for (int i = 0; i < numIndices; i++) {
-        pvalues.push_back((vert[ind[i]]).offsetX);
+        pvalues.push_back((vert[ind[i]]).x);
         pvalues.push_back((vert[ind[i]]).y);
         pvalues.push_back((vert[ind[i]]).z);
         tvalues.push_back((tex[ind[i]]).s);
         tvalues.push_back((tex[ind[i]]).t);
-        nvalues.push_back((norm[ind[i]]).offsetX);
+        nvalues.push_back((norm[ind[i]]).x);
         nvalues.push_back((norm[ind[i]]).y);
         nvalues.push_back((norm[ind[i]]).z);
     }
 
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
     //把顶点放入缓冲区0
@@ -114,6 +114,9 @@ void display(GLFWwindow *window, double currentTime) {
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, earthTexture);
+
+    //设置填充方式，因为每个面颜色一样，所以不易看出形状
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);

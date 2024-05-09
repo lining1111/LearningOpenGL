@@ -1,11 +1,12 @@
+##简单计算着色器
 add_executable(ch16_computeShader computeShader/main.cpp
         computeShader/Utils.cpp)
 target_link_libraries(ch16_computeShader ${LIBS})
-
+##光线投射
 add_executable(ch16_rayCasting rayCasting/main.cpp
         rayCasting/Utils.cpp)
 target_link_libraries(ch16_rayCasting ${LIBS})
-
+##光线投射阴影
 add_executable(ch16_lightingShadows lightingShadows/main.cpp
         lightingShadows/Utils.cpp)
 target_link_libraries(ch16_lightingShadows ${LIBS})

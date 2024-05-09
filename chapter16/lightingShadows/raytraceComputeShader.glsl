@@ -1,4 +1,4 @@
-#version 310
+#version 430
 
 layout (local_size_x = 1) in;
 layout (binding = 0, rgba8) uniform image2D output_texture;

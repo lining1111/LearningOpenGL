@@ -42,10 +42,10 @@ glm::vec3 currentLightPos, transformed;
 float lightPos[3];
 
 // 白光特性
-float globalAmbient[4] = {0.7f, 0.7f, 0.7f, 1.0f};
-float lightAmbient[4] = {0.0f, 0.0f, 0.0f, 1.0f};
-float lightDiffuse[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-float lightSpecular[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+float globalAmbient[4] = {0.7f, 0.7f, 0.7f, 1.0f};//全局光
+float lightAmbient[4] = {0.0f, 0.0f, 0.0f, 1.0f};//环境光反射
+float lightDiffuse[4] = {1.0f, 1.0f, 1.0f, 1.0f};//漫反射
+float lightSpecular[4] = {1.0f, 1.0f, 1.0f, 1.0f};//镜面反射
 
 // 黄金材质特性
 float *matAmb = Utils::goldAmbient();
@@ -94,12 +94,12 @@ void setupVertices(void) {
     std::vector<float> nvalues;
 
     for (int i = 0; i < myTorus.getNumVertices(); i++) {
-        pvalues.push_back(vert[i].offsetX);
+        pvalues.push_back(vert[i].x);
         pvalues.push_back(vert[i].y);
         pvalues.push_back(vert[i].z);
         tvalues.push_back(tex[i].s);
         tvalues.push_back(tex[i].t);
-        nvalues.push_back(norm[i].offsetX);
+        nvalues.push_back(norm[i].x);
         nvalues.push_back(norm[i].y);
         nvalues.push_back(norm[i].z);
     }
@@ -163,6 +163,7 @@ void display(GLFWwindow *window, double currentTime) {
     rMat = glm::rotate(glm::mat4(1.0f), toRadians(amt), glm::vec3(0.0f, 0.0f, 1.0f));
     currentLightPos = glm::vec3(rMat * glm::vec4(currentLightPos, 1.0f));
 
+    //光照模式下，修改视图矩阵
     installLights(vMat);
     //通过合并模型和视图矩阵来计算MV矩阵
     mvMat = vMat * mMat;
