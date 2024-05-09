@@ -18,8 +18,8 @@ float cameraX, cameraY, cameraZ;
 float cubeLocX, cubeLocY, cubeLocZ;
 float pyrLocX, pyrLocY, pyrLocZ;
 GLuint renderingProgram;
-GLuint vao[numVAOs];
-GLuint vbo[numVBOs];
+GLuint vao[numVAOs];//顶点数组对象
+GLuint vbo[numVBOs];//顶点缓冲对象，立方体占0 四棱锥占1
 
 // variable allocation for display
 GLuint mvLoc, projLoc;
@@ -50,8 +50,9 @@ void setupVertices(void) {
              -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, //LF
              1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f  //RR
             };
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
+
     glGenBuffers(numVBOs, vbo);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
@@ -73,6 +74,7 @@ void init(GLFWwindow *window) {
     cameraX = 0.0f;
     cameraY = 0.0f;
     cameraZ = 8.0f;
+    //两个模型位于同一个z平面
     cubeLocX = 0.0f;
     cubeLocY = -2.0f;
     cubeLocZ = 0.0f;
@@ -126,6 +128,7 @@ void display(GLFWwindow *window, double currentTime) {
 }
 
 void window_size_callback(GLFWwindow *win, int newWidth, int newHeight) {
+    //调整屏幕比
     aspect = (float) newWidth / (float) newHeight;
     glViewport(0, 0, newWidth, newHeight);
     pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);

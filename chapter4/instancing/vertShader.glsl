@@ -63,6 +63,6 @@ void main(void) {
     //构建模型矩阵，然后构建MV矩阵
     mat4 newM_matrix = localTrans * localRotX * localRotY * localRotZ;
     mat4 mv_matrix = v_matrix * newM_matrix;
-    gl_Position = proj_matrix * mv_matrix * vec4(position, 1.0);
-    varyingColor = vec4(position, 1.0) * 0.5 + vec4(0.5, 0.5, 0.5, 0.5);
+    gl_Position = proj_matrix * mv_matrix * vec4(position, 1.0);//修改位置
+    varyingColor = vec4(position, 1.0) * 0.5 + vec4(0.5, 0.5, 0.5, 0.5);//修改颜色
 }

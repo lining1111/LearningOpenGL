@@ -23,6 +23,8 @@
 
 ## 概念
 
+    显示主要是CPU+GPU的结果，OpenGL的分布是CPU负责CPU的计算，GPU负责GPU的计算，CPU和GPU通过OpenGL库进行通信，C++部分运行在CPU上，GLSL部分运行在GPU上。    
+
     OpenGL库分类：
     OpenGL/GLSL
     freeglut 窗口管理库
@@ -107,6 +109,8 @@
 
 ## chapter3
 
+    图形的变换就是矩阵的乘法，矩阵乘法是从右向左的，同时不满足交换率，所以顺序很重要。
+
     计算机图形学使用了大量的数学知识，尤其是矩阵和线性代数。
     **在OpenGL和Eigen3中，矩阵的叉乘是从右到左计算的。而线性代数(理论)中，矩阵的叉乘是从左到右计算的。**
     在图形学中，矩阵是用来进行物体的变换的
@@ -161,8 +165,45 @@
 
     代码中展示了点(1,1,1,1)经过平移、缩放、旋转后的结果    
     opengl和eigen3的旋转矩阵得到的系数不同，精度问题
+    opengl eigen3 角度是逆时针的，matlab是顺时针的
 
 ## chapter4
+
+    3个矩阵：
+    模型矩阵 M mode：模型矩阵是在世界坐标空间中，表示对象的位置和朝向的。模型的移动就是不断重建这个矩阵。
+    float cubeX, cubeY, cubeZ;//贴图的位置
+    glm::translate(glm::mat4(1.0f),glm::vec3(cubeX,cubeY,cubeZ));
+
+    视图矩阵 V view：移动并旋转模型矩阵，以模拟所需位置的相机看到的效果。OpenGL的相机位于原点(0,0,0)，朝向z轴负方向。
+    float cameraX, cameraY, cameraZ;//相机的位置
+    glm::translate(glm::mat4(1.0f),glm::vec3(cameraX,cameraY,cameraZ));
+
+    透视矩阵 P proj(projection)：是一种变换矩阵，根据所需要的视锥提供3D效果。
+    float fov, aspect, near, far;//视场、宽高比、近裁剪面、远裁剪面
+    glm::prespective(fov,aspect,near,far)    
+
+    代码级别分析：
+    glsl:
+    uniform 建立mv矩阵、proj矩阵
+    C++:
+    获取glsl的uniform变量
+    init()构建永远不变的矩阵，初始化模型矩阵、视图矩阵、透视矩阵
+    display()在每帧中，根据当前的模型矩阵、视图矩阵、透视矩阵，计算出当前的模型视图投影矩阵，并应用到渲染管线中，包括下面的：
+    为每个模型创建模型矩阵
+    根据相机移动，重建视图矩阵，将视图矩阵和模型矩阵相乘，得到mv矩阵
+    将mv矩阵和proj矩阵赋值到glsl的uniform变量中
+
+    本章的最终大集合在矩阵栈示例中,栈的特性是先入后出，即后进先出，非常适合矩阵的从右相乘的顺序。
+
+    性能优化的编程方法：
+    使用实例化，声明变量的方法减少display()中动态申请内存
+    预先计算透视矩阵，将透视矩阵在init()中计算
+    利用openGL的背面剔除功能，
+        glEnable(GL_CULL_FACE);//三角形排列顺序是逆时针则是正面，顺时针是反面
+        glFrontface(GL_CCW);//逆时针为正面，顺时针为反面
+        glFrontface(GL_CW);//逆时针为反面，顺时针为正面
+        glCullFace(GL_BACK);//剔除背面
+    将“昂贵”的计算转移到着色器中，而不是在CPU中进行计算。
 
 ## chapter5
 

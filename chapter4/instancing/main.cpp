@@ -80,6 +80,7 @@ void display(GLFWwindow *window, double currentTime) {
     glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
+    //将时间因子写入顶点着色器
     timeFactor = ((float) currentTime);
     tfLoc = glGetUniformLocation(renderingProgram, "tf");
     glUniform1f(tfLoc, (float) timeFactor);
@@ -91,6 +92,7 @@ void display(GLFWwindow *window, double currentTime) {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 
+    //批量渲染相同的物体
     glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 24);    // 0, 36, 24  (or 100000)
 }
 
