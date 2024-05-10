@@ -168,7 +168,7 @@ void createReflectRefractBuffers(GLFWwindow *window) {
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, bufferId[0], 0);
 }
 
-auto basePath = string("chapter15/reflectionRefraction");
+auto basePath = string("chapter15/reflectionRefraction/");
 
 void init(GLFWwindow *window) {
     renderingProgramSURFACE = Utils::createShaderProgram(string(basePath + "vertShaderSURFACE.glsl").c_str(),
