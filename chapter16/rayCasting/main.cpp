@@ -33,12 +33,12 @@ const auto basePath = string("chapter16/rayCasting/");
 void init(GLFWwindow *window) {
     Utils::displayComputeShaderLimits();
 
-    // Allocate the memory for the screen texture, and wipe its contacts
-    screenTexture = (unsigned char *) malloc(
-            sizeof(unsigned char) * 4 * RAYTRACE_RENDER_WIDTH * RAYTRACE_RENDER_HEIGHT);
+    // 为屏幕纹理分配内存
+    screenTexture = (unsigned char *)
+            malloc(sizeof(unsigned char) * 4 * RAYTRACE_RENDER_WIDTH * RAYTRACE_RENDER_HEIGHT);
     memset(screenTexture, 0, sizeof(char) * 4 * RAYTRACE_RENDER_WIDTH * RAYTRACE_RENDER_HEIGHT);
 
-    // Setting the initial texture colors to pink to reveal if error
+    // 初始化纹理像素颜色设为粉红色
     for (int i = 0; i < RAYTRACE_RENDER_HEIGHT; i++) {
         for (int j = 0; j < RAYTRACE_RENDER_WIDTH; j++) {
             screenTexture[i * RAYTRACE_RENDER_WIDTH * 4 + j * 4 + 0] = 250;
@@ -56,17 +56,23 @@ void init(GLFWwindow *window) {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, RAYTRACE_RENDER_WIDTH, RAYTRACE_RENDER_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE,
                  (const void *) screenTexture);
 
-    // create quad Vertices and texture coordinates for rendering the finished texture to the window
+    // 创建四边行顶点和纹理坐标
     const float windowQuadVerts[] =
-            {-1.0f, 1.0f, 0.3f, -1.0f, -1.0f, 0.3f, 1.0f, -1.0f, 0.3f,
-             1.0f, -1.0f, 0.3f, 1.0f, 1.0f, 0.3f, -1.0f, 1.0f, 0.3f
+            {-1.0f, 1.0f, 0.3f,
+             -1.0f, -1.0f, 0.3f,
+             1.0f, -1.0f, 0.3f,
+             1.0f, -1.0f, 0.3f,
+             1.0f, 1.0f, 0.3f,
+             -1.0f, 1.0f, 0.3f
             };
     const float windowQuadUVs[] =
-            {0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-             1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f
+            {0.0f, 1.0f, 0.0f,
+             0.0f, 1.0f, 0.0f,
+             1.0f, 0.0f, 1.0f,
+             1.0f, 0.0f, 1.0f
             };
 
-    glGenVertexArrays(1, vao);
+    glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
     glGenBuffers(numVBOs, vbo);
 

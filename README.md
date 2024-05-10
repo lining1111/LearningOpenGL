@@ -106,6 +106,19 @@
 ## chapter2
 
     介绍基本单元的使用，很粗略，目的建立一个基本的概念。
+    建立着色器 glCreateShader()
+
+    顶点着色器
+    GL_VERTEX_SHADER    
+    片段着色器
+    GL_FRAGMENT_SHADER
+    几何着色器
+    GL_GEOMETRY_SHADER
+    曲面细分着色器
+    GL_TESS_CONTROL_SHADER  曲面细分控制着色器
+    GL_TESS_EVALUATION_SHADER 曲面细分计算着色器
+    计算着色器
+    GL_COMPUTE_SHADER
 
 ## chapter3
 
@@ -306,6 +319,7 @@
 ## chapter13
 
     几何着色器
+    GL_GEOMETRY_SHADER_BIT
     允许一次操作一个图元
     geometry 几何学(图元)
 
@@ -317,14 +331,20 @@
 ## chapter15
 
     模拟水面
-    这里水面反射和折射的程序，久到程序退出都没出来，后面的程序都能出来，可能代码有问题
-    
     本章欣赏添加动画那个效果挺不错的
 
 ## chapter16
 
-    光线追踪和计算着色器,虚拟机中GPU可能用不了，总是段错误,该章需要以后再重点看看
+    虚拟机运行本章内容会有段错误
+    光线追踪和计算着色器
+    通常GPU也用于计算密集型非图像任务，使用GPU做非图像任务的一种途径是利用专用语言CUDA或者OpenGL,另外的一种途径就是使用计算着色器
+    计算着色器独立运行，不与顶点着色器和片段着色器交互，同时没有预定义的输入或输出，但是它可以接收传给它的数据，如统一变量，同时也能在内存中生成或修改数据，并将其返回给GPU。
+    从计算着色器中获取所得结果的方法只有两种：
+    1、使用特殊的缓冲区即着色器存储缓冲区对象(Shader Storage Buffer Objects,SSBO) GL_SHADER_STORAGE_BUFFER
+    2、使用图片载入或存储功能，这个在图像处理中很常见
+    glDispatchCompute()调用计算着色器，通常计算着色器的调用次数是每个顶点一次
     
+
 
 ## chapter17
 

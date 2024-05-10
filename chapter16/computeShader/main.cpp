@@ -7,8 +7,8 @@ using namespace std;
 GLuint buffer[3];
 GLuint simpleComputeShader;
 
-int v1[] = {10, 12, 16, 18, 50, 17};
-int v2[] = {30, 14, 80, 20, 51, 12};
+int v1[6] = {10, 12, 16, 18, 50, 17};
+int v2[6] = {30, 14, 80, 20, 51, 12};
 int res[6];
 
 auto basePath = string("chapter16/computeShader/");
@@ -32,7 +32,7 @@ void computeSum() {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, buffer[1]);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, buffer[2]);
 
-    glDispatchCompute(6, 1, 1);
+    glDispatchCompute(6, 1, 1);//调用计算着色器6次，这些调用可以并行运算
     glMemoryBarrier(GL_ALL_BARRIER_BITS);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, buffer[2]);
