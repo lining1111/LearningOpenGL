@@ -74,8 +74,8 @@ void init(GLFWwindow *window) {
 
     glGenVertexArrays(numVAOs, vao);
     glBindVertexArray(vao[0]);
-    glGenBuffers(numVBOs, vbo);
 
+    glGenBuffers(numVBOs, vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);  // vertext positions
     glBufferData(GL_ARRAY_BUFFER, sizeof(windowQuadVerts), windowQuadVerts, GL_STATIC_DRAW);
 

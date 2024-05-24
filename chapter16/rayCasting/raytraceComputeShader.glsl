@@ -19,11 +19,11 @@ struct Collision {
 
 float sphere_radius = 2.5;
 vec3 sphere_position = vec3(1.0, 0.0, -3.0);
-vec3 sphere_color = vec3(1.0, 0.0, 0.0); // 球面颜色为红色
+vec3 sphere_color = vec3(0.0, 0.0, 1.0); // 球面颜色为蓝色
 
 vec3 box_mins = vec3(-2.0, -2.0, 0.0);
 vec3 box_maxs = vec3(-0.5, 1.0, 2.0);
-vec3 box_color = vec3(0.0, 1.0, 0.0); // 立方体颜色为绿色
+vec3 box_color = vec3(1.0, 0.0, 0.0); // 立方体颜色为红色
 
 
 
@@ -120,22 +120,22 @@ Collision intersect_sphere_object(Ray r) {
 
     c.t = t_near;
 
-    // sphere is behind the ray, no intersection
+    // 球面在光线的背后，没有交点
     if (t_far < 0.0) {
         c.t = -1.0;
         return c;
     }
 
-    // the ray started inside the sphere
+    // 光线从球面内部开始
     if (t_near < 0.0) {
         c.t = t_far;
         c.inside = true;
     }
 
-    c.p = r.start + c.t * r.dir;    // world position of the collision
-    c.n = normalize(c.p - sphere_position);    // use the world position to compute the surface normal
+    c.p = r.start + c.t * r.dir;    // 碰撞的全局坐标
+    c.n = normalize(c.p - sphere_position);    // 使用全局坐标计算表面法向量
 
-    // if collision is leaving the sphere, flip the normal
+    // 如果碰撞是离开球面的，对其法向量取反
     if (c.inside) {
         c.n *= -1.0;
     }
